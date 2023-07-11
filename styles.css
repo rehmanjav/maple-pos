@@ -1,0 +1,75 @@
+body {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-areas: "recD recD recD inputD inputD inputD"
+                         "recD recD recD inputD inputD inputD"
+                         "recD recD recD numP numP paym"
+                         "butP butP butP numP numP paym"
+                         "butP butP butP numP numP paym"
+                         "butP butP butP numP numP paym";
+    width: 100vw;
+    height: 100vh;
+    margin: 0px;
+}
+
+.recD {
+    grid-area: recD;
+    border: black solid 1px;
+}
+
+.inputD {
+    grid-area: inputD;
+    border: black solid 1px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.numP {
+    grid-area: numP;
+    border: black solid 1px;
+}
+
+.paym {
+    grid-area: paym;
+    border: black solid 1px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.butP {
+    grid-area: butP;
+    border: black solid 1px;
+    padding: 20px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.butP > button {
+    outline: none;
+    height: 110px;
+    width: 110px;
+    color: white;
+    font-size: 1.5rem;
+    border: none;
+}
+
+.paym > button{
+    outline: none;
+    height: 75px;
+    width: 75%;
+}
+
+
+.inputD > div {
+    width: 75%;
+    height: 40%;
+    border: black 1px solid;
+}
