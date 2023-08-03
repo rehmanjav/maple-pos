@@ -13,6 +13,10 @@ body {
     margin: 0px;
 }
 
+button:active {
+    opacity: 0.5;
+}
+
 .recD {
     grid-area: recD;
     border: black solid 1px;
@@ -20,12 +24,22 @@ body {
 
 .mid {
     grid-area: mid;
-    border: black solid 1px;
+    border: black solid 1px;  
 }
 
 .util {
     grid-area: util;
     border: black solid 1px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.util > button {
+    height: 90px;
+    width: 100px;
 }
 
 .inputD {
@@ -92,4 +106,10 @@ body {
     width: 75%;
     height: 40%;
     border: black 1px solid;
+}
+
+.inputDisplay {
+    display: flex;
+    justify-content: left;
+    align-items: center;
 }
