@@ -4,10 +4,10 @@ body {
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-areas: "recD recD recD inputD inputD inputD"
                          "recD recD recD inputD inputD inputD"
-                         "recD recD recD numP numP paym"
-                         "butP butP butP numP numP paym"
-                         "butP butP butP numP numP paym"
-                         "butP butP butP numP numP paym";
+                         "recD recD recD util util paym"
+                         "butP butP mid numP numP paym"
+                         "butP butP mid numP numP paym"
+                         "butP butP mid numP numP paym";
     width: 100vw;
     height: 100vh;
     margin: 0px;
@@ -15,6 +15,16 @@ body {
 
 .recD {
     grid-area: recD;
+    border: black solid 1px;
+}
+
+.mid {
+    grid-area: mid;
+    border: black solid 1px;
+}
+
+.util {
+    grid-area: util;
     border: black solid 1px;
 }
 
@@ -30,6 +40,16 @@ body {
 .numP {
     grid-area: numP;
     border: black solid 1px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.numP > button {
+    height: 70px;
+    width: 130px;
 }
 
 .paym {
