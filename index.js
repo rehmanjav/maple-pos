@@ -1,37 +1,80 @@
 "use strict";
 
-const currentTrans = [];
+const currentTran = [];
+let activeTran = "";
+
+let categories = ["nontax", "online", "nevadaP", "tax13", "onlineP", "scratch", "tobacco", "nevada", "scratchP", "hst"];
 
 const items = {
-    "MAPLE-LOTTERYPRIZE": {"name": "Lottery Online Prize", "upc": "", "price": "", "tax": 0, "category": "lotteryPrize",},
-    "MAPLE-NEVADAPRIZE": {"name": "Nevada Prize", "upc": "", "price": "", "tax": 0, "category": "nevadaPrize",},
-    "MAPLE-SCRATCHPRIZE": {"name": "Scratch Prize", "upc": "", "price": "", "tax": 0, "category": "scratchPrize",},
-    "MAPLE-LOTTERYONLINE": {"name": "Lottery Online", "upc": "", "price": "", "tax": 0, "category": "lotteryOnline",},
-    "MAPLE-GROCERY": {"name": "Grocery", "upc": "", "price": "", "tax": 0, "category": "non-tax",},
-    "MAPLE-TOBACCO": {"name": "Tobacco", "upc": "", "price": "", "tax": 13, "category": "tobacco",},
-    "MAPLE-SLUSHMED": {"name": "Slushie Medium", "upc": "", "price": "", "tax": 13, "category": "taxable",},
-    "MAPLE-GROCERYTX": {"name": "Grocery Tx", "upc": "", "price": "", "tax": 13, "category": "taxable",},
-    "MAPLE-SLUSHSM": {"name": "Slushie Small", "upc": "", "price": "", "tax": 13, "category": "taxable",},
-    "MAPLE-SLUSHLG": {"name": "Slushie Large", "upc": "", "price": "", "tax": 13, "category": "taxable",},
-    "MAPLE-NEVADA": {"name": "Nevada", "upc": "", "price": "", "tax": 0, "category": "nevada",},
-    "MAPLE-SCRATCH": {"name": "Scratch Ticket", "upc": "", "price": "", "tax": 0, "category": "scratch",},
+    "LOTTERYPRIZE": {"name": "Lottery Online Prize", "upc": "LOTTERYPRIZE", "price": 1, "tax": 0, "category": "onlineP", "qty": 1},
+    "NEVADAPRIZE": {"name": "Nevada Prize", "upc": "NEVADAPRIZE", "price": "1", "tax": 0, "category": "nevadaP", "qty": 1},
+    "SCRATCHPRIZE": {"name": "Scratch Prize", "upc": "", "price": "", "tax": 0, "category": "scratchP", "qty": 1},
+    "LOTTERYONLINE": {"name": "Lottery Online", "upc": "", "price": "", "tax": 0, "category": "online", "qty": 1},
+    "GROCERY": {"name": "Grocery", "upc": "", "price": "", "tax": 0, "category": "nontax", "qty": 1},
+    "TOBACCO": {"name": "Tobacco", "upc": "", "price": "", "tax": 13, "category": "tobacco",},
+    "SLUSHMED": {"name": "Slushie Medium", "upc": "", "price": "", "tax": 13, "category": "tax13", "qty": 1},
+    "GROCERYTX": {"name": "Grocery Tx", "upc": "", "price": "", "tax": 13, "category": "tax13", "qty": 1},
+    "SLUSHSM": {"name": "Slushie Small", "upc": "", "price": "", "tax": 13, "category": "tax13", "qty": 1},
+    "SLUSHLG": {"name": "Slushie Large", "upc": "", "price": "", "tax": 13, "category": "tax13", "qty": 1},
+    "NEVADA": {"name": "Nevada", "upc": "", "price": "", "tax": 0, "category": "nevada", "qty": 1},
+    "SCRATCH": {"name": "Scratch Ticket", "upc": "", "price": "", "tax": 0, "category": "scratch", "qty": 1},
 };
 
 class Transaction {
     constructor(firstItem) {
-      this.height = height;
-      this.width = width;
+      this.uuid = crypto.randomUUID();
+      this.items = [firstItem];
+
+    }
+
+    addItem() {
+
+    }
+
+    removeItem() {
+
+    }
+
+    addPaym() {
+
+    }
+
+    postTran() {
+
+    }
+
+    suspendTran() {
+
+    }
+
+    generateReceipt() {
+
+    }
+
+    updateCategories() {
+
+    }
+
+    updateTotals() {
+
     }
   }
 
-// class Item {
-//     constructor(itemObject) {
-//         this.upc = itemObject.upc
-//         this.price
-//         this.tax
-//         this.category
-//     }
-// }
+class Item {
+    constructor(itemObject) {
+        this.upc = itemObject.upc
+        this.price = itemObject.price
+        this.tax = itemObject.tax
+        this.category = itemObject.category
+        this.name = itemObject.name
+        this.qty = 1;
+         
+    }
+}
+
+function updateDisplays() {
+
+}
 
 function appendInput(text) {
     let inputEle = document.querySelector(".inputDisplay");
@@ -46,16 +89,28 @@ function clearInput() {
 function runInput() {
     let input = document.querySelector(".inputDisplay").textContent;
 
-    if (input.contains("MAPLE-")) {
-        if (input.contains("$$@$$")) {
+    // if (input.contains("MAPLE-")) {
+    //     if (input.contains("$$@$$")) {
 
-        } else if (!input.contains("$$@$$")) {
-            input.split()
-        }
+    //     } else if (!input.contains("$$@$$")) {
+    //         input.split()
+    //     }
         
+    // }
+
+    switch (true) {
+        case /^\d{12}$/.test(input):
+            console.log(`Running the following input (${input})`);
+            break;
+        case /^(\d{1,3})@(\d{12})$/.test(input):
+            console.log(`Running the following input (${input})`);
+            break;
+
+
+
     }
 
-    console.log(`Running the following input (${input})`);
+    
     clearInput();
 }
 
@@ -67,6 +122,11 @@ window.addEventListener('keydown', (e) => {
     }
     
     if (e.key == "Backspace") {clearInput()};
+
+    if (e.key == "Enter") {
+        let inputEle = document.querySelector(".inputDisplay");
+        runInput(inputEle.textContent);
+    };
 });
 
 // ADD EVENT LISTENERS TO NUMPAD
