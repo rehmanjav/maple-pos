@@ -89,27 +89,15 @@ function clearInput() {
 function runInput() {
     let input = document.querySelector(".inputDisplay").textContent;
 
-    // if (input.contains("MAPLE-")) {
-    //     if (input.contains("$$@$$")) {
-
-    //     } else if (!input.contains("$$@$$")) {
-    //         input.split()
-    //     }
-        
-    // }
-
     switch (true) {
-        case /^\d{12}$/.test(input):
+        case /^(?<upc>\d{12})$/.test(input):
             console.log(`Running the following input (${input})`);
             break;
-        case /^(\d{1,3})@(\d{12})$/.test(input):
+        case /^(?<qty>\d{1,3})@(?<upc>\d{12})$/.test(input):
             console.log(`Running the following input (${input})`);
             break;
-
-
 
     }
-
     
     clearInput();
 }
