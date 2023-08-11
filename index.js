@@ -1,30 +1,52 @@
 "use strict";
 
-const currentTran = [];
-let activeTran = "";
+const transactions = [];
+let currentTran = "";
 
 let categories = ["nontax", "online", "nevadaP", "tax13", "onlineP", "scratch", "tobacco", "nevada", "scratchP", "hst"];
 
 const items = {
-    "LOTTERYPRIZE": {"name": "Lottery Online Prize", "upc": "LOTTERYPRIZE", "price": 1, "tax": 0, "category": "onlineP", "qty": 1},
-    "NEVADAPRIZE": {"name": "Nevada Prize", "upc": "NEVADAPRIZE", "price": "1", "tax": 0, "category": "nevadaP", "qty": 1},
-    "SCRATCHPRIZE": {"name": "Scratch Prize", "upc": "", "price": "", "tax": 0, "category": "scratchP", "qty": 1},
-    "LOTTERYONLINE": {"name": "Lottery Online", "upc": "", "price": "", "tax": 0, "category": "online", "qty": 1},
-    "GROCERY": {"name": "Grocery", "upc": "", "price": "", "tax": 0, "category": "nontax", "qty": 1},
-    "TOBACCO": {"name": "Tobacco", "upc": "", "price": "", "tax": 13, "category": "tobacco",},
-    "SLUSHMED": {"name": "Slushie Medium", "upc": "", "price": "", "tax": 13, "category": "tax13", "qty": 1},
-    "GROCERYTX": {"name": "Grocery Tx", "upc": "", "price": "", "tax": 13, "category": "tax13", "qty": 1},
-    "SLUSHSM": {"name": "Slushie Small", "upc": "", "price": "", "tax": 13, "category": "tax13", "qty": 1},
-    "SLUSHLG": {"name": "Slushie Large", "upc": "", "price": "", "tax": 13, "category": "tax13", "qty": 1},
-    "NEVADA": {"name": "Nevada", "upc": "", "price": "", "tax": 0, "category": "nevada", "qty": 1},
-    "SCRATCH": {"name": "Scratch Ticket", "upc": "", "price": "", "tax": 0, "category": "scratch", "qty": 1},
+    "LOTTERYPRIZE": {"name": "Lottery Online Prize", 
+                     "upc": "LOTTERYPRIZE",
+                     "price": -1,
+                     "tax": 0,
+                     "category": "onlineP",
+                     "qty": 1,
+                    },
+    "NEVADAPRIZE": {"name": "Nevada Prize", "upc": "NEVADAPRIZE", "price": -1, "tax": 0, "category": "nevadaP", "qty": 1},
+    "SCRATCHPRIZE": {"name": "Scratch Prize", "upc": "", "price": -1, "tax": 0, "category": "scratchP", "qty": 1},
+    "LOTTERYONLINE": {"name": "Lottery Online", "upc": "", "price": 1, "tax": 0, "category": "online", "qty": 1},
+    "GROCERY": {"name": "Grocery", "upc": "", "price": 1, "tax": 0, "category": "nontax", "qty": 1},
+    "TOBACCO": {"name": "Tobacco", "upc": "", "price": 1, "tax": 13, "category": "tobacco", "qty": 1},
+    "SLUSHMED": {"name": "Slushie Medium", "upc": "", "price": 1, "tax": 13, "category": "tax13", "qty": 1},
+    "GROCERYTX": {"name": "Grocery Tx", "upc": "", "price": 1, "tax": 13, "category": "tax13", "qty": 1},
+    "SLUSHSM": {"name": "Slushie Small", "upc": "", "price": 1, "tax": 13, "category": "tax13", "qty": 1},
+    "SLUSHLG": {"name": "Slushie Large", "upc": "", "price": 1, "tax": 13, "category": "tax13", "qty": 1},
+    "NEVADA": {"name": "Nevada", "upc": "", "price": 1, "tax": 0, "category": "nevada", "qty": 1},
+    "SCRATCH": {"name": "Scratch Ticket", "upc": "", "price": 1, "tax": 0, "category": "scratch", "qty": 1},
 };
 
 class Transaction {
-    constructor(firstItem) {
+    constructor() {
       this.uuid = crypto.randomUUID();
-      this.items = [firstItem];
+      this.items = [];
 
+      this.grandTotal = 0;
+      this.subTotal = 0;
+      this.tax = 0;
+      this.paym = 0;
+
+      this.nontax = 0;
+      this.online = 0;
+      this.nevadaP = 0;
+      this.tax13 = 0;
+      this.onlineP = 0;
+      this.scratch = 0;
+      this.tobacco = 0;
+      this.nevada = 0;
+      this.scratchP = 0;
+      this.hst = 0;
+      
     }
 
     addItem() {
@@ -40,6 +62,8 @@ class Transaction {
     }
 
     postTran() {
+
+        this.updateCategories();
 
     }
 
@@ -90,11 +114,58 @@ function runInput() {
     let input = document.querySelector(".inputDisplay").textContent;
 
     switch (true) {
-        case /^(?<upc>\d{12})$/.test(input):
+        case /^(?<upc>\d{12})$/.test(input):                                // 12346789123 groups {upc}
+            {let result = input.match(/^(?<upc>\d{12})$/);
+            upc = result.groups.upc;
+            if (items[upc]) {
+                currentTran.addItem(items[upc]);
+
+            }
+
             console.log(`Running the following input (${input})`);
+            }
             break;
-        case /^(?<qty>\d{1,3})@(?<upc>\d{12})$/.test(input):
+
+        case /^(?<qty>\d{1,3})@(?<upc>\d{12})$/.test(input):                // 6@123456789123 groups {qty, upc}
+            {let result = input.match(/^(?<qty>\d{1,3})@(?<upc>\d{12})$/);
+
             console.log(`Running the following input (${input})`);
+            }
+            break;
+        
+        case /^(?<price>\d{1,6})(?<upc>[A-Z]{1,20})$/.test(input):                           // 500GROCERY groups {price , upc}
+            {let result = input.match(/^(?<price>\d{1,6})(?<upc>[A-Z]{1,20})$/);
+
+            if (!currentTran) {
+                transactions.push(new Transaction());
+                currentTran = transactions[transactions.length - 1];
+            }
+
+            if (items[result.groups.upc]) {                         // TODO: Handle negative prices for prizes
+                let price = +result.groups.price;
+                let upc = result.groups.upc;
+
+                let item = new Item(items[result.groups.upc]);
+
+                item.price = price;
+
+                currentTran.addItem(item);
+
+            }
+
+            console.log(`Running the following input (${input})`);
+            }
+            break;
+        
+        case /^(?<qty>\d{1,3})(?<price>\d{1,6})(?<upc>[A-Z]{1,20})$/.test(input):                     // 6@1000GROCERY groups {qty, price, upc}
+            {let result = input.match(/^(?<qty>\d{1,3})(?<price>\d{1,6})(?<upc>[A-Z]{1,20})$/);
+
+            let price = result.groups.price;
+            let upc = result.groups.upc;
+            let qty = result.groups.qty;
+
+            console.log(`Running the following input (${input})`);
+            }
             break;
 
     }
