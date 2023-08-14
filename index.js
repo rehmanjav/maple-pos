@@ -141,13 +141,13 @@ function runInput() {
                 currentTran = transactions[transactions.length - 1];
             }
 
-            if (items[result.groups.upc]) {                         // TODO: Handle negative prices for prizes
+            if (items[result.groups.upc]) {                      
                 let price = +result.groups.price;
                 let upc = result.groups.upc;
 
                 let item = new Item(items[result.groups.upc]);
 
-                item.price = price;
+                item.price = item.price * price;
 
                 currentTran.addItem(item);
 
