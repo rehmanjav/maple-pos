@@ -6,24 +6,24 @@ let currentTran = "";
 let categories = ["nontax", "online", "nevadaP", "tax13", "onlineP", "scratch", "tobacco", "nevada", "scratchP", "hst"];
 
 const items = {
-    "LOTTERYPRIZE": {"name": "Lottery Online Prize", 
-                     "upc": "LOTTERYPRIZE",
+    "ONLINEPRIZE": {"name": "Lottery Online Prize", 
+                     "upc": "ONLINEPRIZE",
                      "price": -1,
                      "tax": 0,
                      "category": "onlineP",
                      "qty": 1,
                     },
     "NEVADAPRIZE": {"name": "Nevada Prize", "upc": "NEVADAPRIZE", "price": -1, "tax": 0, "category": "nevadaP", "qty": 1},
-    "SCRATCHPRIZE": {"name": "Scratch Prize", "upc": "", "price": -1, "tax": 0, "category": "scratchP", "qty": 1},
-    "LOTTERYONLINE": {"name": "Lottery Online", "upc": "", "price": 1, "tax": 0, "category": "online", "qty": 1},
-    "GROCERY": {"name": "Grocery", "upc": "", "price": 1, "tax": 0, "category": "nontax", "qty": 1},
-    "TOBACCO": {"name": "Tobacco", "upc": "", "price": 1, "tax": 13, "category": "tobacco", "qty": 1},
-    "SLUSHMED": {"name": "Slushie Medium", "upc": "", "price": 1, "tax": 13, "category": "tax13", "qty": 1},
-    "GROCERYTX": {"name": "Grocery Tx", "upc": "", "price": 1, "tax": 13, "category": "tax13", "qty": 1},
-    "SLUSHSM": {"name": "Slushie Small", "upc": "", "price": 1, "tax": 13, "category": "tax13", "qty": 1},
-    "SLUSHLG": {"name": "Slushie Large", "upc": "", "price": 1, "tax": 13, "category": "tax13", "qty": 1},
-    "NEVADA": {"name": "Nevada", "upc": "", "price": 1, "tax": 0, "category": "nevada", "qty": 1},
-    "SCRATCH": {"name": "Scratch Ticket", "upc": "", "price": 1, "tax": 0, "category": "scratch", "qty": 1},
+    "SCRATCHPRIZE": {"name": "Scratch Prize", "upc": "SCRATCHPRIZE", "price": -1, "tax": 0, "category": "scratchP", "qty": 1},
+    "ONLINE": {"name": "Lottery Online", "upc": "ONLINE", "price": 1, "tax": 0, "category": "online", "qty": 1},
+    "GROCERY": {"name": "Grocery", "upc": "GROCERY", "price": 1, "tax": 0, "category": "nontax", "qty": 1},
+    "TOBACCO": {"name": "Tobacco", "upc": "TOBACCO", "price": 1, "tax": 13, "category": "tobacco", "qty": 1},
+    "SLUSHMED": {"name": "Slushie Medium", "upc": "SLUSHMED", "price": 1, "tax": 13, "category": "tax13", "qty": 1},
+    "GROCERYTX": {"name": "Grocery Tx", "upc": "GROCERYTX", "price": 1, "tax": 13, "category": "tax13", "qty": 1},
+    "SLUSHSM": {"name": "Slushie Small", "upc": "SLUSHSM", "price": 1, "tax": 13, "category": "tax13", "qty": 1},
+    "SLUSHLG": {"name": "Slushie Large", "upc": "SLUSHLG", "price": 1, "tax": 13, "category": "tax13", "qty": 1},
+    "NEVADA": {"name": "Nevada", "upc": "NEVADA", "price": 1, "tax": 0, "category": "nevada", "qty": 1},
+    "SCRATCH": {"name": "Scratch Ticket", "upc": "SCRATCH", "price": 1, "tax": 0, "category": "scratch", "qty": 1},
 };
 
 class Transaction {
@@ -120,7 +120,7 @@ function updateDisplays() {
 
     let para = document.querySelector('.recD > p');
 
-    para.textContent = currentTran;
+    para.textContent = JSON.stringify(currentTran);
 }
 
 function appendInput(text) {
@@ -277,73 +277,73 @@ btnDot.addEventListener('click', () => {
 
 let btnLp= document.querySelector(".btn-lotPrize");
 btnLp.addEventListener('click', () => {
-    appendInput();
+    appendInput('ONLINEPRIZE');
     runInput();
 });
 
 let btnG= document.querySelector(".btn-grocery");
 btnG.addEventListener('click', () => {
-    appendInput();
+    appendInput('GROCERY');
     runInput();
 });
 
 let btnGt= document.querySelector(".btn-grocerytx");
 btnGt.addEventListener('click', () => {
-    appendInput();
+    appendInput('GROCERYTX');
     runInput();
 });
 
 let btnL= document.querySelector(".btn-lottery");
 btnL.addEventListener('click', () => {
-    appendInput();
+    appendInput('ONLINE');
     runInput();
 });
 
 let btnNp= document.querySelector(".btn-nevadaPrize");
 btnNp.addEventListener('click', () => {
-    appendInput();
+    appendInput('NEVADAPRIZE');
     runInput();
 });
 
 let btnTob= document.querySelector(".btn-tobacco");
 btnTob.addEventListener('click', () => {
-    appendInput();
+    appendInput('TOBACCO');
     runInput();
 });
 
 let btnSlushSm= document.querySelector(".btn-slushsm");
 btnSlushSm.addEventListener('click', () => {
-    appendInput();
+    appendInput('SLUSHSM');
     runInput();
 });
 
 let btnNev= document.querySelector(".btn-nevada");
 btnNev.addEventListener('click', () => {
-    appendInput();
+    appendInput('NEVADA');
     runInput();
 });
 
 let btnScP= document.querySelector(".btn-scratchPrize");
 btnScP.addEventListener('click', () => {
-    appendInput();
+    appendInput('SCRATCHPRIZE');
     runInput();
 });
 
 let btnSlushMed= document.querySelector(".btn-slushmed");
 btnSlushMed.addEventListener('click', () => {
-    appendInput();
+    appendInput('SLUSHMED');
     runInput();
 });
 
 let btnSlushLg= document.querySelector(".btn-slushlg");
 btnSlushLg.addEventListener('click', () => {
-    appendInput();
+    appendInput('SLUSHLG');
     runInput();
 });
 
 let btnS= document.querySelector(".btn-scratch");
 btnS.addEventListener('click', () => {
-    appendInput();
+    appendInput('SCRATCH');
     runInput();
 });
 
@@ -358,5 +358,20 @@ btnS.addEventListener('click', () => {
 let btnClr = document.querySelector(".btn-clr");
 btnClr.addEventListener('click', () => {
     clearInput();
+});
+
+let btnVoid = document.querySelector(".btn-void");    // TODO
+btnVoid.addEventListener('click', () => {
+  
+});
+
+let btnAt= document.querySelector(".btn-at");        // TODO
+btnAt.addEventListener('click', () => {
+    appendInput('\@');
+});
+
+let btnDel = document.querySelector(".btn-del");        // TODO
+btnDel.addEventListener('click', () => {
+   
 });
 
