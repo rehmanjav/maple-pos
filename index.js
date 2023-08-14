@@ -49,8 +49,29 @@ class Transaction {
       
     }
 
-    addItem() {
+    addItem(item) {
+        this.items.push(item);
+        this.updateTotals();
+        updateDisplays();
 
+    }
+
+    updateTotals() {
+        this.grandTotal = 0;
+        this.subTotal = 0;
+        this.tax = 0;
+        this.paym = 0;
+
+        this.items.forEach((item) => {    // item.price item.tax item.qty
+            this.subTotal += item.price * item.qty;
+            
+            if (item.tax > 0) {
+                this.tax += Math.round(item.tax * item.qty * item.price / 100)
+            }
+
+            this.grandTotal = this.subTotal + this.tax;
+
+        });
     }
 
     removeItem() {
@@ -79,9 +100,6 @@ class Transaction {
 
     }
 
-    updateTotals() {
-
-    }
   }
 
 class Item {
@@ -97,7 +115,12 @@ class Item {
 }
 
 function updateDisplays() {
+    let recD = document.querySelector('.recD');
+    let cusD = document.querySelector('.cusD');          // ADJUST THIS SELECTOR WHEN ELECTRON SET UP  will need to look at customer dislpay child window for selector
 
+    let para = document.querySelector('.recD > p');
+
+    para.textContent = currentTran;
 }
 
 function appendInput(text) {
