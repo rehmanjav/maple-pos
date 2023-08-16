@@ -1,0 +1,114 @@
+<div class="items-div">
+  <div class="item-div-single">
+    <span>Name</span><span>Price</span>
+  </div>
+  <div class="item-div-single red">
+    <span>Lottery Prize</span><span>-20.00</span>
+  </div>
+  <div class="item-div-double">
+    <span>Name</span><br>
+    <div class="double-div">
+      <span>2 @ price</span><span>Price</span>             </div>
+  </div>
+</div>
+<div class="totals-div">
+  <div class="total-div">
+    <span>Sub-total</span><span>Price</span>
+  </div>
+  <div class="total-div">
+    <span>HST</span><span>Price</span>
+  </div>
+  <div class="total-div grand-total">
+    <span>GRAND TOTAL</span><span>Price</span>
+  </div>
+  <div class="total-div">
+    <span>Payment</span><span>Price</span>
+  </div>
+  <div class="total-div">
+    <span>Change</span><span>Price</span>
+  </div>
+</div>
+
+CSS STARTS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+.recD {
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .items-div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .item-div-single {
+    display: flex;
+    justify-content: space-between;
+    border: black 1px solid;
+  }
+  
+  .item-div-double {
+    border: black 1px solid;
+  }
+  
+  .double-div {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .totals-div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .total-div {
+    display: flex;
+    justify-content: space-between;
+    border: 1px black solid;
+  }
+  
+  .grand-total {
+    font-size: 1.2rem;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+  
+  .red {
+    color: red;
+  }
+
+JAVASCRIPT STARTS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+  let bodyDiv = document.querySelector('body');
+  bodyDiv.classList.add("recD");
+  
+  let currentTran = {
+    items: [{name: "Grocery Tx", qty: 1, price: 500},
+            {name: "Lottery Prize", qty: 1, price: -2000},
+            {name: "Tobacco", qty: 2, price: 1891}]
+  }
+  
+  function updateRecD(currentTran) {
+    let recD = document.querySelector(".recD");
+    recD.appendChild(generateItemsDivs(currentTran.items));
+    recD.appendChild(generateTotalsDivs(currentTran));
+  }
+  
+  function generateItemsDivs(items) {
+    items.forEach((item) => {
+      if (item.qty == 1) {
+        
+      } else {
+        
+      }
+    });
+  }
+  
+  function generateTotalsDivs(tran) {
+    
+  }
+  
