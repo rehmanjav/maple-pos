@@ -113,3 +113,74 @@ button:active {
     justify-content: left;
     align-items: center;
 }
+
+/* CUSTOMER DISPLAY CSS */
+
+.cust-display {
+    width: 100vw;
+    height: 100vh;
+    /* margin: 0; */
+    /* padding: 0; */
+    grid-template-areas: "recD recD custI custI custI custI"
+                         "recD recD custI custI custI custI"
+                         "recD recD custI custI custI custI"
+                         "recD recD custI custI custI custI"
+                         "recD recD custT custT custT custT"
+                         "recD recD custT custT custT custT";
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.cust-display > div {
+    border: black 1px solid;
+}
+
+.cust-img {
+    height: 100%;
+}
+
+.cust-img-div {
+    grid-area: custI;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cust-totals {
+    display: grid;
+    grid-area: custT;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-template-areas: "custCA custCA custCA"
+                         "custCH custCH custCH"
+                         "subtotal tax grand"
+                         "subtotal tax grand";
+}
+
+.cust-totals > div {
+    border: 1px black solid;
+}
+
+.cust-total-cash {
+    grid-area: custCA;
+}
+
+.cust-total-change {
+    grid-area: custCH;
+}
+
+.cust-total-sub {
+    grid-area: subtotal;
+}
+
+.cust-total-tax {
+    grid-area: tax;
+}
+
+.cust-total-grand {
+    grid-area: grand;
+}
+
+.cust-totals span {
+    font-size: 2.5rem;
+}
