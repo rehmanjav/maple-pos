@@ -8,7 +8,8 @@
   <div class="item-div-double">
     <span>Name</span><br>
     <div class="double-div">
-      <span>2 @ price</span><span>Price</span>             </div>
+      <span>2 @ price</span><span>Price</span>
+    </div>
   </div>
 </div>
 <div class="totals-div">
