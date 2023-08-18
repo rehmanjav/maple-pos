@@ -144,6 +144,7 @@ button:active {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 5px;
 }
 
 .cust-totals {
@@ -163,22 +164,40 @@ button:active {
 
 .cust-total-cash {
     grid-area: custCA;
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
 }
 
 .cust-total-change {
     grid-area: custCH;
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
 }
 
 .cust-total-sub {
     grid-area: subtotal;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .cust-total-tax {
     grid-area: tax;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .cust-total-grand {
     grid-area: grand;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .cust-totals span {
