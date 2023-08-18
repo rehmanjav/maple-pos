@@ -35,6 +35,7 @@ class Transaction {
       this.subTotal = 0;
       this.tax = 0;
       this.paym = 0;
+      this.change = 0;
 
       this.nontax = 0;
       this.online = 0;

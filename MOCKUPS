@@ -30,67 +30,77 @@
   </div>
 </div>
 
+
 CSS STARTS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
 .recD {
-    max-width: 400px;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-  }
-  
-  .items-div {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-  }
-  
-  .item-div-single {
-    display: flex;
-    justify-content: space-between;
-    border: black 1px solid;
-  }
-  
-  .item-div-double {
-    border: black 1px solid;
-  }
-  
-  .double-div {
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .totals-div {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-  }
-  
-  .total-div {
-    display: flex;
-    justify-content: space-between;
-    border: 1px black solid;
-  }
-  
-  .grand-total {
-    font-size: 1.2rem;
-    margin-top: 5px;
-    margin-bottom: 5px;
-  }
-  
-  .red {
-    color: red;
-  }
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
 
-JAVASCRIPT STARTS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+.items-div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
 
-  let bodyDiv = document.querySelector('body');
+.item-div-single {
+  display: flex;
+  justify-content: space-between;
+  border: black 1px solid;
+}
+
+.item-div-double {
+  border: black 1px solid;
+}
+
+.double-div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.totals-div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.total-div {
+  display: flex;
+  justify-content: space-between;
+  border: 1px black solid;
+}
+
+.grand-total {
+  font-size: 1.2rem;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.red {
+  color: red;
+}
+
+
+JAVASCRIPT STARTS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+let bodyDiv = document.querySelector('body');
   bodyDiv.classList.add("recD");
   
   let currentTran = {
-    items: [{name: "Grocery Tx", qty: 1, price: 500},
+    items: [{name: "Grocery Tx", qty: 2, price: 500},
             {name: "Lottery Prize", qty: 1, price: -2000},
-            {name: "Tobacco", qty: 2, price: 1891}]
+            {name: "Tobacco", qty: 2, price: 1891}],
+    grandTotal: 2000,
+    subTotal: 1800,
+    tax: 300,
+    paym: 1800,
+    change: 200
+  }
+  
+  function formatPrice(price) {
+    return `$${(price / 100.0).toFixed(2)}`
   }
   
   function updateRecD(currentTran) {
@@ -100,16 +110,81 @@ JAVASCRIPT STARTS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   }
   
   function generateItemsDivs(items) {
+    let oldItemsDiv = document.querySelector(".items-div");
+    oldItemsDiv.innerHTML = "";
+    
+    let itemsDiv = document.createElement('div');
+    itemsDiv.classList.add("items-div");
+    
     items.forEach((item) => {
       if (item.qty == 1) {
+        let singleDiv = document.createElement('div');
         
-      } else {
+        singleDiv.innerHTML = `<div class="item-div-single">
+    <span>${item.name}</span><span>${formatPrice(item.price)}</span>
+  </div>`;
+        if (item.price < 0) {
+          singleDiv.classList.add("red");
+        }
+        
+        itemsDiv.appendChild(singleDiv);
+        
+      } else if (item.qty >= 2) {
+        let doubleDiv = document.createElement('div');
+        
+        doubleDiv.innerHTML = `<div class="item-div-double">
+    <span>${item.name}</span><br>
+    <div class="double-div">
+      <span>${item.qty} @ ${formatPrice(item.price)}</span><span>${formatPrice(item.price * item.qty)}</span>
+    </div>
+  </div>`;
+        if (item.price < 0) {
+          doubleDiv.classList.add("red");
+        }
+        
+        itemsDiv.appendChild(doubleDiv);
         
       }
     });
+    
+    return itemsDiv;
   }
   
   function generateTotalsDivs(tran) {
+    let oldTotalsDiv = document.querySelector(".totals-div");
+    oldTotalsDiv.innerHTML = "";
+    let totalsDiv = document.createElement('div');
+    totalsDiv.classList.add('totals-div');
     
+    totalsDiv.innerHTML = `<div class="total-div">
+    <span>Sub-total</span><span>${formatPrice(tran.subTotal)}</span>
+  </div>
+  <div class="total-div">
+    <span>HST</span><span>${formatPrice(tran.tax)}</span>
+  </div>
+  <div class="total-div grand-total">
+    <span>GRAND TOTAL</span><span>${formatPrice(tran.grandTotal)}</span>
+  </div>
+  <div class="total-div">
+    <span>Payment</span><span>${formatPrice(tran.paym)}</span>
+  </div>
+  <div class="total-div">
+    <span>Change</span><span>${formatPrice(tran.change)}</span>
+  </div>`;
+    
+    // let subTotal = document.createElement('div');
+    // subTotal.classList.add("total-div");
+    // let hst = document.createElement('div');
+    // hst.classList.add("total-div");
+    // let grandTotal = document.createElement('div');
+    // grandTotal.classList.add("total-div");
+    // grandTotal.classList.add("grand-total");
+    // let payment = document.createElement('div');
+    // payment.classList.add("total-div");
+    // let change = document.createElement('div');
+    // change.classList.add("total-div");
+    return totalsDiv;
   }
+
+updateRecD(currentTran);
   
