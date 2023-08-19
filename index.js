@@ -86,7 +86,9 @@ class Transaction {
             this.updateTotals();
             updateAllDisplays();
         }
+
         // TODO HANDLE WHHEN LAST ITEM IS REMOVED FROM A TRANSACTION
+        // IF currentTran.items.length == 0, DEL the transaction
 
     }
 
