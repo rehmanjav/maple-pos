@@ -53,7 +53,7 @@ class Transaction {
     addItem(item) {
         this.items.push(item);
         this.updateTotals();
-        updateDisplays();
+        updateAllDisplays();
 
     }
 
@@ -62,6 +62,7 @@ class Transaction {
         this.subTotal = 0;
         this.tax = 0;
         this.paym = 0;
+        this.change = 0;
 
         this.items.forEach((item) => {    // item.price item.tax item.qty
             this.subTotal += item.price * item.qty;
@@ -75,7 +76,17 @@ class Transaction {
         });
     }
 
-    removeItem() {
+    removeItem(index) {
+        if (index == "LAST") {
+            currentTran.items.pop();
+            this.updateTotals();
+            updateAllDisplays();
+        } else {
+            currentTran.items.splice(index, 1);
+            this.updateTotals();
+            updateAllDisplays();
+        }
+        // TODO HANDLE WHHEN LAST ITEM IS REMOVED FROM A TRANSACTION
 
     }
 
@@ -115,13 +126,36 @@ class Item {
     }
 }
 
-function updateDisplays() {
+function updateAllDisplays() {
     let recD = document.querySelector('.recD');
     let cusD = document.querySelector('.cusD');          // ADJUST THIS SELECTOR WHEN ELECTRON SET UP  will need to look at customer dislpay child window for selector
 
     let para = document.querySelector('.recD > p');
 
-    para.textContent = JSON.stringify(currentTran);
+    if (para == null) {
+        let para = document.createElement('p');
+        recD.appendChild(para);
+        para.textContent = JSON.stringify(currentTran);
+    } else {
+        para.textContent = JSON.stringify(currentTran);
+    }
+    
+
+    updatePOSDisplay(currentTran);
+    updateCustDisplay(currentTran);
+}
+
+function updatePOSDisplay(currentTran) {
+    if (!currentTran) {
+        let recD = document.querySelector('.recD');
+        recD.innerHTML = "";
+    }
+}
+
+function updateCustDisplay(currentTran) {
+    if (!currentTran) {
+
+    }
 }
 
 function appendInput(text) {
@@ -187,6 +221,39 @@ function runInput() {
             let price = result.groups.price;
             let upc = result.groups.upc;
             let qty = result.groups.qty;
+
+            console.log(`Running the following input (${input})`);
+            }
+            break;
+        
+        case input == "DELETETRAN":                // DELETETRAN
+            {let index = transactions.findIndex((tran) => {
+                if (tran.uuid = currentTran.uuid) return true;
+            });
+            
+            currentTran = "";
+
+            transactions.splice(index, 1);
+
+            updateAllDisplays();
+
+            console.log(`Running the following input (${input})`);
+            }
+            break;
+        
+        case /^(?<index>\d{0,3})(?<button>VOIDITEM)$/.test(input) :                // VOIDITEM or 4VOIDITEM
+            {
+            let result = input.match(/^(?<index>\d{0,3})(?<button>VOIDITEM)$/);
+
+            if (result.groups.index == '') {
+                let index = "LAST";
+                currentTran.removeItem("LAST");
+
+            } else {
+                let index = +result.groups.index - 1;
+                currentTran.removeItem(index);
+
+            }
 
             console.log(`Running the following input (${input})`);
             }
@@ -361,8 +428,14 @@ btnClr.addEventListener('click', () => {
     clearInput();
 });
 
-let btnVoid = document.querySelector(".btn-void");    // TODO
+let btnVoid = document.querySelector(".btn-void");    // TODO "VOIDITEM" or a 4VOIDITEM 
 btnVoid.addEventListener('click', () => {
+    appendInput("VOIDITEM");
+    runInput();
+
+    // "LAST"
+
+    // take the number, subtract 1 and pass to run
   
 });
 
@@ -373,6 +446,8 @@ btnAt.addEventListener('click', () => {
 
 let btnDel = document.querySelector(".btn-del");        // TODO
 btnDel.addEventListener('click', () => {
-   
+    clearInput();
+    appendInput("DELETETRAN");
+    runInput();
 });
 
