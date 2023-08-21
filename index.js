@@ -337,15 +337,16 @@ function runInput() {
         case /^(?<index>\d{0,3})(?<button>VOIDITEM)$/.test(input) :                // VOIDITEM or 4VOIDITEM
             {
             let result = input.match(/^(?<index>\d{0,3})(?<button>VOIDITEM)$/);
-
-            if (result.groups.index == '') {
+            
+            if (currentTran == '') {
+                break;
+            } else if (result.groups.index == '') {
                 let index = "LAST";
                 currentTran.removeItem("LAST");
 
             } else {
                 let index = +result.groups.index - 1;
                 currentTran.removeItem(index);
-
             }
 
             console.log(`Running the following input (${input})`);
