@@ -203,3 +203,50 @@ button:active {
 .cust-totals span {
     font-size: 2.5rem;
 }
+
+/* recD display css */
+
+.items-div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+  
+.item-div-single {
+display: flex;
+justify-content: space-between;
+border: black 1px solid;
+}
+
+.item-div-double {
+border: black 1px solid;
+}
+
+.double-div {
+display: flex;
+justify-content: space-between;
+}
+
+.totals-div {
+display: flex;
+flex-direction: column;
+gap: 5px;
+}
+
+.total-div {
+display: flex;
+justify-content: space-between;
+border: 1px black solid;
+}
+
+.grand-total {
+font-size: 1.2rem;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+
+.red {
+color: red;
+}
+
+/* recD css ends */

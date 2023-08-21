@@ -130,19 +130,25 @@ class Item {
     }
 }
 
+function formatPrice(price) {
+    return `$${(price / 100.0).toFixed(2)}`
+}
+
 function updateAllDisplays() {
-    let recD = document.querySelector('.recD');
-    let cusD = document.querySelector('.cusD');          // ADJUST THIS SELECTOR WHEN ELECTRON SET UP  will need to look at customer dislpay child window for selector
+    // let recD = document.querySelector('.recD');
+    // let cusD = document.querySelector('.cusD');          // ADJUST THIS SELECTOR WHEN ELECTRON SET UP  will need to look at customer dislpay child window for selector
 
-    let para = document.querySelector('.recD > p');
+    // let para = document.querySelector('.recD > p');
 
-    if (para == null) {
-        let para = document.createElement('p');
-        recD.appendChild(para);
-        para.textContent = JSON.stringify(currentTran);
-    } else {
-        para.textContent = JSON.stringify(currentTran);
-    }
+    // if (para == null) {
+    //     let para = document.createElement('p');
+    //     recD.appendChild(para);
+    //     para.textContent = JSON.stringify(currentTran);
+    // } else {
+    //     para.textContent = JSON.stringify(currentTran);
+    // }
+
+
     
 
     updatePOSDisplay(currentTran);
@@ -153,7 +159,90 @@ function updatePOSDisplay(currentTran) {
     if (!currentTran) {
         let recD = document.querySelector('.recD');
         recD.innerHTML = "";
+    } else {
+        let recD = document.querySelector(".recD");
+        recD.innerHTML = "";
+
+        recD.appendChild(generateItemsDivs(currentTran.items));
+        recD.appendChild(generateTotalsDivs(currentTran));
     }
+}
+
+function generateItemsDivs(items) {
+    // let oldItemsDiv = document.querySelector(".items-div");
+    // oldItemsDiv.innerHTML = "";
+    
+    let itemsDiv = document.createElement('div');
+    itemsDiv.classList.add("items-div");
+    
+    items.forEach((item) => {
+      if (item.qty == 1) {
+        let singleDiv = document.createElement('div');
+        
+        singleDiv.innerHTML = `<div class="item-div-single">
+    <span>${item.name}</span><span>${formatPrice(item.price)}</span>
+  </div>`;
+        if (item.price < 0) {
+          singleDiv.classList.add("red");
+        }
+        
+        itemsDiv.appendChild(singleDiv);
+        
+      } else if (item.qty >= 2) {
+        let doubleDiv = document.createElement('div');
+        
+        doubleDiv.innerHTML = `<div class="item-div-double">
+    <span>${item.name}</span><br>
+    <div class="double-div">
+      <span>${item.qty} @ ${formatPrice(item.price)}</span><span>${formatPrice(item.price * item.qty)}</span>
+    </div>
+  </div>`;
+        if (item.price < 0) {
+          doubleDiv.classList.add("red");
+        }
+        
+        itemsDiv.appendChild(doubleDiv);
+        
+      }
+    });
+    
+    return itemsDiv;
+}
+
+function generateTotalsDivs(tran) {
+    // let oldTotalsDiv = document.querySelector(".totals-div");
+    // oldTotalsDiv.innerHTML = "";
+    let totalsDiv = document.createElement('div');
+    totalsDiv.classList.add('totals-div');
+    
+    totalsDiv.innerHTML = `<div class="total-div">
+    <span>Sub-total</span><span>${formatPrice(tran.subTotal)}</span>
+  </div>
+  <div class="total-div">
+    <span>HST</span><span>${formatPrice(tran.tax)}</span>
+  </div>
+  <div class="total-div grand-total">
+    <span>GRAND TOTAL</span><span>${formatPrice(tran.grandTotal)}</span>
+  </div>
+  <div class="total-div">
+    <span>Payment</span><span>${formatPrice(tran.paym)}</span>
+  </div>
+  <div class="total-div">
+    <span>Change</span><span>${formatPrice(tran.change)}</span>
+  </div>`;
+    
+    // let subTotal = document.createElement('div');
+    // subTotal.classList.add("total-div");
+    // let hst = document.createElement('div');
+    // hst.classList.add("total-div");
+    // let grandTotal = document.createElement('div');
+    // grandTotal.classList.add("total-div");
+    // grandTotal.classList.add("grand-total");
+    // let payment = document.createElement('div');
+    // payment.classList.add("total-div");
+    // let change = document.createElement('div');
+    // change.classList.add("total-div");
+    return totalsDiv;
 }
 
 function updateCustDisplay(currentTran) {
