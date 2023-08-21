@@ -87,9 +87,11 @@ class Transaction {
             updateAllDisplays();
         }
 
-        // TODO HANDLE WHHEN LAST ITEM IS REMOVED FROM A TRANSACTION
-        // IF currentTran.items.length == 0, DEL the transaction
-
+        if (currentTran.items.length == 0) {
+            clearInput();
+            appendInput("DELETETRAN");
+            runInput();
+        }
     }
 
     addPaym() {
