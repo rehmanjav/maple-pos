@@ -250,3 +250,16 @@ color: red;
 }
 
 /* recD css ends */
+
+.mid {
+    padding: 10px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.mid > button {
+    height: 60px;
+    width: 150px;
+}

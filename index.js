@@ -254,7 +254,7 @@ function updateCustDisplay(currentTran) {
 
 function appendInput(text) {
     if (isInputLocked == true) {return};
-    
+
     let inputEle = document.querySelector(".inputDisplay");
     inputEle.textContent += text;
 }
@@ -522,13 +522,49 @@ btnS.addEventListener('click', () => {
     runInput();
 });
 
+// ADD EVENT LISTENERS TO MID BUTTONS
+
+let btnUp = document.querySelector(".btn-up");
+btnUp.addEventListener('click', () => {
+    console.log("clicked btn-up");
+});
+
+let btnDown = document.querySelector(".btn-down");
+btnDown.addEventListener('click', () => {
+    console.log("clicked btn-down");
+});
+
+let btnPrintReceipt = document.querySelector(".btn-print-receipt");
+btnPrintReceipt.addEventListener('click', () => {
+    console.log("clicked btn-print-receipt");
+});
+
+let btnSuspend = document.querySelector(".btn-suspend");
+btnSuspend.addEventListener('click', () => {
+    console.log("clicked btn-suspend");
+});
+
+let btnRecall = document.querySelector(".btn-recall");
+btnRecall.addEventListener('click', () => {
+    console.log("clicked btn-recall");
+});
+
+let btnCCFee = document.querySelector(".btn-cc-fee");
+btnCCFee.addEventListener('click', () => {
+    console.log("clicked btn-cc-fee");
+});
+
+let btnUtilities = document.querySelector(".btn-utilities");
+btnUtilities.addEventListener('click', () => {
+    console.log("clicked btn-utilities");
+});
 
 
 
 
 
 
-
+// ADD EVENT LISTENERS TO UTIL BUTTONS
 
 let btnClr = document.querySelector(".btn-clr");
 btnClr.addEventListener('click', () => {
