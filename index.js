@@ -2,6 +2,7 @@
 
 const transactions = [];
 let currentTran = "";
+let isInputLocked = false;
 
 let categories = ["nontax", "online", "nevadaP", "tax13", "onlineP", "scratch", "tobacco", "nevada", "scratchP", "hst"];
 
@@ -252,6 +253,8 @@ function updateCustDisplay(currentTran) {
 }
 
 function appendInput(text) {
+    if (isInputLocked == true) {return};
+    
     let inputEle = document.querySelector(".inputDisplay");
     inputEle.textContent += text;
 }
@@ -262,6 +265,8 @@ function clearInput() {
 }
 
 function runInput() {
+    if (isInputLocked == true) {return};
+
     let input = document.querySelector(".inputDisplay").textContent;
 
     switch (true) {
@@ -356,6 +361,14 @@ function runInput() {
     }
     
     clearInput();
+}
+
+function lockInput() {
+    isInputLocked = true;
+}
+
+function unlockInput() {
+    isInputLocked = false;
 }
 
 // ADD EVENT LISTENER ON WINDOW
