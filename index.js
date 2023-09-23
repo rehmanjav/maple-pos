@@ -371,6 +371,46 @@ function unlockInput() {
     isInputLocked = false;
 }
 
+
+function openRecallModal() {
+    lockInput();
+    renderRecallModal();
+}
+
+function closeRecallModal() {
+
+
+    unlockInput();
+}
+
+function renderRecallModal() {
+
+}
+
+function openUtilModal() {
+
+}
+
+function closeUtilModal() {
+
+}
+
+function renderUtilModal() {
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 // ADD EVENT LISTENER ON WINDOW
 
 window.addEventListener('keydown', (e) => {
@@ -542,11 +582,18 @@ btnPrintReceipt.addEventListener('click', () => {
 let btnSuspend = document.querySelector(".btn-suspend");
 btnSuspend.addEventListener('click', () => {
     console.log("clicked btn-suspend");
+    if (currentTran) {
+        currentTran = '';
+        updateAllDisplays();
+    }
 });
 
 let btnRecall = document.querySelector(".btn-recall");
 btnRecall.addEventListener('click', () => {
     console.log("clicked btn-recall");
+    if (currentTran == '') {
+        openRecallModal();
+    }
 });
 
 let btnCCFee = document.querySelector(".btn-cc-fee");
